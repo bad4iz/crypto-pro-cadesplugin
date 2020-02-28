@@ -110,7 +110,3 @@ async function doFriendlyCustomCertsList() {
   });
 }
 ```
-
-### License
-
-MIT © [Eugene Plotnikov](https://github.com/bad4iz)
