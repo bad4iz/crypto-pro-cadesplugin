@@ -1,0 +1,29 @@
+{
+  "name": "crypto-pro-cadesplugin",
+  "version": "1.0.2",
+  "description": "Библиотека предоставляет API для работы c cadesplugin и Крипто Про",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bad4iz <cadesplugin@bad4iz.ru>",
+  "license": "MIT",
+  "keywords": [
+    "crypto-pro-cadesplugin",
+    "cadesplugin",
+    "Крипто Про",
+    "криптоПро",
+    "кадесплагин",
+    "cades",
+    "ЭЦП",
+    "Электонная подпись",
+    "Электронная цифровая подпись",
+    "cadesplugin-api",
+    "cadesplugin-crypto-pro-customize",
+    "crypto-pro-customize",
+    "crypto-pro-customize",
+    "crypto-pro",
+    "cryptoPro",
+    "crypto"
+  ]
+}
