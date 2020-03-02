@@ -2,10 +2,6 @@
 
 Библиотека предоставляет API для работы c cadesplugin и Крипто Про
 
-## Install
-
-npm i crypto-pro-cadesplugin
-
 ## API
 
 ### about()
