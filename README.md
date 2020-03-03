@@ -106,3 +106,40 @@ async function doFriendlyCustomCertsList() {
   });
 }
 ```
+
+
+
+
+## returns fo methods
+
+### about()
+```js
+{
+    Version, // <Promise> - версия 
+    MajorVersion,// <Promise> - Major Version
+    BuildVersion,// <Promise> - Build Version
+    PluginVersio,// <Promise> - Plugin Versio
+    MinorVersion,// <Promise> - Minor Version
+    objid, // <Int> - object id
+    CSPName,// <Function> CSP name
+    ProviderVersion,// <Function> Provider Version
+    CSPVersion,// <Function> - CSP Version
+}
+```
+###
+
+```js
+[
+    {
+        certApi, <Object> апи сертификата 
+        issuerInfo, <String> информация юзера
+        privateKey, <Object> приватный ключ
+        serialNumber,  <String> серийный номер
+        thumbprint, <String> thumbprint сертификата
+        subjectInfo, <String> информация об субъекте
+        validPeriod, <Object> валидный период
+    },
+   ...
+]
+```
+
