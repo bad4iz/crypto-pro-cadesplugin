@@ -125,21 +125,39 @@ async function doFriendlyCustomCertsList() {
     ProviderVersion,// <Function> Provider Version
     CSPVersion,// <Function> - CSP Version
 }
-```
-###
+``` 
+### getCertsList()
 
 ```js
 [
     {
-        certApi, <Object> апи сертификата 
-        issuerInfo, <String> информация юзера
-        privateKey, <Object> приватный ключ
-        serialNumber,  <String> серийный номер
-        thumbprint, <String> thumbprint сертификата
-        subjectInfo, <String> информация об субъекте
-        validPeriod, <Object> валидный период
+        certApi,// <Object> апи сертификата 
+        issuerInfo,// <String> информация юзера
+        privateKey,// <Object> приватный ключ
+        serialNumber,//  <String> серийный номер
+        thumbprint,// <String> thumbprint сертификата
+        subjectInfo,// <String> информация об субъекте
+        validPeriod,// <Object> валидный период
     },
    ...
 ]
 ```
 
+### currentCadesCert(thumbprint)
+
+```js
+    {
+        certApi,// <Object> апи сертификата 
+        issuerInfo,// <String> информация юзера
+        privateKey,// <Object> приватный ключ
+        serialNumber,//  <String> серийный номер
+        thumbprint,// <String> thumbprint сертификата
+        subjectInfo,// <String> информация об субъекте
+        validPeriod,// <Object> валидный период
+    }
+```
+
+### signBase64(thumbprint, base64)
+```js
+    // <String> base64 - подпись в base64
+```
