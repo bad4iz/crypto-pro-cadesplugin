@@ -2,6 +2,12 @@
 
 Библиотека предоставляет API для работы c cadesplugin и Крипто Про
 
+## Как подключить
+```bash
+yarn --registry [путь до локального npm репозитория] add crypto-pro-cadesplugin 
+```
+
+
 ## API
 
 ### about()
