@@ -1,6 +1,6 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////
 // NOTE Imports
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////
 
 const {
   XML_DSIG_GOST: {
@@ -15,12 +15,12 @@ const {
     CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED,
     CADESCOM_XML_SIGNATURE_TYPE_ENVELOPING,
     CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE,
-  }
-} = require('./constants');
+  },
+} = require('./constants')
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////
 // NOTE Functions
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////
 
 /**
  * @method template
@@ -35,22 +35,22 @@ function template(signAlgorithm) {
     return {
       signAlgorithm,
       hashAlgorithm,
-    };
-  };
+    }
+  }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////
 // NOTE Object create
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////
 
 /**
  * @description объект предоставляет методы для выбора опций при подписании XML документа
  */
-const xmlSitnatureMethods = Object.create(null);
+const xmlSitnatureMethods = Object.create(null)
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////
 // NOTE Methods
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////
 
 /**
  * @method xmlSitnatureType
@@ -63,22 +63,22 @@ xmlSitnatureMethods.doXmlSitnatureType = function doXmlSitnatureType(CADESCOM_XM
   switch (CADESCOM_XML_SIGNATURE_TYPE) {
     case 0:
       // Вложенная подпись
-      return CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED;
+      return CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED
 
     case 1:
       // Оборачивающая подпись
-      return CADESCOM_XML_SIGNATURE_TYPE_ENVELOPING;
+      return CADESCOM_XML_SIGNATURE_TYPE_ENVELOPING
 
-      /**
-       * @todo тип подписи CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE на данном этапе не поддерживается
-       * @description при выдове данного пипа будет ошибка
-       */
+    /**
+     * @todo тип подписи CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE на данном этапе не поддерживается
+     * @description при выдове данного пипа будет ошибка
+     */
     case 2:
       // Подпись по шаблону
-      return CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE;
+      return CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE
 
     default:
-      throw new Error('Тип подписи не поддерживается');
+      throw new Error('Тип подписи не поддерживается')
   }
 }
 
@@ -93,23 +93,25 @@ xmlSitnatureMethods.doXmlSitnatureAlgorithm = function doXmlSitnatureAlgorithm(v
   switch (value) {
     case '1.2.643.2.2.19':
       // алгоритм ГОСТ Р 34.10-2001
-      return template(XmlDsigGost3410Url)(XmlDsigGost3411Url);
+      return template(XmlDsigGost3410Url)(XmlDsigGost3411Url)
 
     case '1.2.643.7.1.1.1.1':
       // алгоритм ГОСТ Р 34.10-2012 256 бит
-      return template(XmlDsigGost2012Url256)(XmlDsigGost2012Url256Digest);
+      return template(XmlDsigGost2012Url256)(XmlDsigGost2012Url256Digest)
 
     case '1.2.643.7.1.1.1.2':
       // алгоритм ГОСТ Р 34.10-2012 512 бит
-      return template(XmlDsigGost2012Url512)(XmlDsigGost2012Url512Digest);
+      return template(XmlDsigGost2012Url512)(XmlDsigGost2012Url512Digest)
 
     default:
-      throw new Error('Сертификат не соответствует ГОСТ Р 34.10-2012 (256 или 512 бит) или ГОСТ Р 34.10-2001');
+      throw new Error(
+        'Сертификат не соответствует ГОСТ Р 34.10-2012 (256 или 512 бит) или ГОСТ Р 34.10-2001',
+      )
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////
 // NOTE Exports
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////
 
-module.exports = Object.create(xmlSitnatureMethods);
+module.exports = Object.create(xmlSitnatureMethods)

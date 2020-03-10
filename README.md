@@ -2,12 +2,6 @@
 
 Библиотека предоставляет API для работы c cadesplugin и Крипто Про
 
-## Как подключить
-```bash
-yarn --registry [путь до локального npm репозитория] add crypto-pro-cadesplugin 
-```
-
-
 ## API
 
 ### about()
@@ -111,59 +105,4 @@ async function doFriendlyCustomCertsList() {
     };
   });
 }
-```
-
-
-
-
-## returns fo methods
-
-### about()
-```js
-{
-    Version, // <Promise> - версия 
-    MajorVersion,// <Promise> - Major Version
-    BuildVersion,// <Promise> - Build Version
-    PluginVersio,// <Promise> - Plugin Versio
-    MinorVersion,// <Promise> - Minor Version
-    objid, // <Int> - object id
-    CSPName,// <Function> CSP name
-    ProviderVersion,// <Function> Provider Version
-    CSPVersion,// <Function> - CSP Version
-}
-``` 
-### getCertsList()
-
-```js
-[
-    {
-        certApi,// <Object> апи сертификата 
-        issuerInfo,// <String> информация юзера
-        privateKey,// <Object> приватный ключ
-        serialNumber,//  <String> серийный номер
-        thumbprint,// <String> thumbprint сертификата
-        subjectInfo,// <String> информация об субъекте
-        validPeriod,// <Object> валидный период
-    },
-   ...
-]
-```
-
-### currentCadesCert(thumbprint)
-
-```js
-    {
-        certApi,// <Object> апи сертификата 
-        issuerInfo,// <String> информация юзера
-        privateKey,// <Object> приватный ключ
-        serialNumber,//  <String> серийный номер
-        thumbprint,// <String> thumbprint сертификата
-        subjectInfo,// <String> информация об субъекте
-        validPeriod,// <Object> валидный период
-    }
-```
-
-### signBase64(thumbprint, base64)
-```js
-    // <String> base64 - подпись в base64
 ```

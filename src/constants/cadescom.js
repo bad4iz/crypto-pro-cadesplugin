@@ -155,4 +155,4 @@ module.exports = {
    * @constant {Number} CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE Подпись по шаблону.
    */
   CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE: 2,
-};
+}

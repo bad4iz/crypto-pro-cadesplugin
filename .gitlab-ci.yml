@@ -1,0 +1,23 @@
+image: node:13-alpine
+
+#variables:
+#  GIT_CLONE_PATH: ${CI_BUILDS_DIR}/${CI_CONCURRENT_ID}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/${CI_COMMIT_REF_NAME}
+
+stages:
+  - delivery
+
+nexus:
+  stage: delivery
+  image: node:13-alpine
+  script:
+    - yarn
+    - yarn build
+    - npm install -g npm-cli-login
+    - npm-cli-login -r ${NPM_REGISTRY}
+    - npm publish --registry ${NPM_REGISTRY}
+  only:
+    - /^v\w*\-?\d\.\d\.\d/
+  except:
+    - branches
+  tags:
+    - docker

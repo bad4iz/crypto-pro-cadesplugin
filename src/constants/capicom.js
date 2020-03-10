@@ -152,4 +152,4 @@ module.exports = {
    * @constant {Number} CAPICOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME Время подписи.
    */
   CAPICOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME: 0,
-};
+}
