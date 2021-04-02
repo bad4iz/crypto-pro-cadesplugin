@@ -1,0 +1,42 @@
+{
+  "name": "crypto-pro-cadesplugin",
+  "version": "1.0.3",
+  "description": "Библиотека предоставляет API для работы c cadesplugin и Крипто Про",
+  "unpkg": "dist/index.js",
+  "jsdelivr": "dist/index.js",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ --out-dir ./dist --copy-files",
+    "postversion": "git push && git push --tags"
+  },
+  "author": "Plotnikov Evgene <cadesplugin@bad4iz.ru>",
+  "keywords": [
+    "crypto-pro-cadesplugin",
+    "cadesplugin",
+    "Крипто Про",
+    "криптоПро",
+    "кадесплагин",
+    "cades",
+    "ЭЦП",
+    "Электонная подпись",
+    "Электронная цифровая подпись",
+    "cadesplugin-api",
+    "cadesplugin-crypto-pro-customize",
+    "crypto-pro-customize",
+    "crypto-pro-customize",
+    "crypto-pro",
+    "cryptoPro",
+    "crypto"
+  ],
+  "dependencies": {
+    "babel-cli": "^6.6.4",
+    "babel-core": "^6.7.4",
+    "babel-eslint": "^10.0.2",
+    "babel-loader": "^7.1.5",
+    "babel-polyfill": "^6.7.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "babel-plugin-transform-es2015-modules-umd": "^6.6.5"
+  }
+}

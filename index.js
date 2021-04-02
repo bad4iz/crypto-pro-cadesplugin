@@ -1,0 +1,1 @@
+import cryptoProCadesplugin from './dist'
