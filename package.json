@@ -38,5 +38,14 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-2": "^6.5.0",
     "babel-plugin-transform-es2015-modules-umd": "^6.6.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bad4iz/crypto-pro-cadesplugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bad4iz/crypto-pro-cadesplugin/issues"
+  },
+  "license": "ISC",
+  "homepage": "https://github.com/bad4iz/crypto-pro-cadesplugin#readme"
 }
