@@ -1,1 +1,1 @@
-import cryptoProCadesplugin from './src'
+export {default} from './src'
