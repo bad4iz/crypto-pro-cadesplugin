@@ -9,6 +9,7 @@ cache:
 
 install:
   - yarn --frozen-lockfile --non-interactive
+  - yarn build
 
 before_deploy: "echo 'ready?'"
 deploy:
@@ -17,3 +18,7 @@ deploy:
   api_key: $AUTH_TOKEN
   on:
     branch: main
+  only:
+    - /^v\w*\-?\d\.\d\.\d/
+  except:
+    - branches
