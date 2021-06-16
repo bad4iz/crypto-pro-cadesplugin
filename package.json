@@ -10,7 +10,7 @@
     "publish": "npm publish",
     "postversion": "git push && git push --tags",
     "ver-minor": "npm version minor -m \"Upgrade minor to %s\"",
-    "ver-patch": "npm version patch -m \"Upgrade patch to  %s\"",
+    "ver-patch": "npm version patch -m \"Upgrade patch to  %s\""
   },
   "author": "Plotnikov Evgene <cadesplugin@bad4iz.ru>",
   "keywords": [
