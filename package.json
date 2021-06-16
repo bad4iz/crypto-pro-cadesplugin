@@ -45,11 +45,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bad4iz/.git"
+    "url": "git+https://github.com/bad4iz/crypto-pro-cadesplugin.git"
   },
   "bugs": {
     "url": "https://github.com/bad4iz/crypto-pro-cadesplugin/issues"
   },
   "license": "ISC",
-  "homepage": "https://github.com/bad4iz/#readme"
+  "homepage": "https://github.com/bad4iz/crypto-pro-cadesplugin#readme"
 }
