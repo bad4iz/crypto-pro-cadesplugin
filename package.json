@@ -7,10 +7,10 @@
   "main": "src/index.js",
   "scripts": {
     "build": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ --out-dir ./dist --copy-files",
-    "postversion": "git push && git push --tags",
-    "ver-patch": "npm version patch -m \"Upgrade patch to  %s\"",
-    "ver-minor": "npm version minor -m \"Upgrade minor to %s\"",
     "publish": "npm publish"
+    "postversion": "git push && git push --tags",
+    "ver-minor": "npm version minor -m \"Upgrade minor to %s\"",
+    "ver-patch": "npm version patch -m \"Upgrade patch to  %s\"",
   },
   "author": "Plotnikov Evgene <cadesplugin@bad4iz.ru>",
   "keywords": [
