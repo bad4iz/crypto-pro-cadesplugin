@@ -9,7 +9,6 @@ cache:
 
 install:
   - yarn --frozen-lockfile --non-interactive
-  - yarn build
 
 before_deploy: "echo 'ready?'"
 deploy:
