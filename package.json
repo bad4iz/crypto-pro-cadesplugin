@@ -9,6 +9,7 @@
     "build": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ --out-dir ./dist --copy-files",
     "publish": "npm publish",
     "postversion": "git push && git push --tags",
+    "test": "echo \"Error: no test specified\" ",
     "ver-minor": "npm version minor -m \"Upgrade minor to %s\"",
     "ver-patch": "npm version patch -m \"Upgrade patch to  %s\""
   },
