@@ -116,3 +116,53 @@ async function doFriendlyCustomCertsList() {
   });
 }
 ```
+### Получение сертификатов на примере react.js
+```js
+import {useMemo, useState} from "react";
+import ccpa from "crypto-pro-cadesplugin";
+
+
+const useDoCertsList = () =>
+    useMemo(async () => {
+        const certsApi = await ccpa();
+        const certsList = await certsApi.getCertsList();
+
+        const list = certsList.map(({subjectInfo, thumbprint}) => ({
+            value: thumbprint,
+            label: subjectInfo
+        }));
+        return list;
+    }, []);
+
+const SelectCert = () => {
+    const [listSert, setListSert] = useState([{value: "подпись", label: "подпись"}]);
+
+    useDoCertsList()
+        .then(setListSert)
+
+    return (
+        <label>
+            <select name="thumbprint" >
+                {
+                    listSert.map(item => (
+                        <option value={item.value} selected>{item.label}</option>
+                    ))
+                }
+            </select>
+            Выберите сертификат
+        </label>
+    );
+};
+
+export default SelectCert;
+```
+
+### Подписание файла в формате base64
+```js
+    const sign = await ccpa.signBase64(thumbprint, sBase64Data);
+```
+
+### Подписание файла в формате Xml
+```js
+    const sign = await ccpa.signXml(thumbprint, Xml);
+```
