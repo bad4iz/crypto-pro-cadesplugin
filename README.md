@@ -1,5 +1,15 @@
 # cadesplugin
 
+![](https://travis-ci.org/bad4iz/crypto-pro-cadesplugin.svg?branch=main)
+![](https://img.shields.io/npm/v/crypto-pro-cadesplugin.svg)
+![](https://img.shields.io/npm/dt/crypto-pro-cadesplugin.svg)
+
+![](https://img.shields.io/github/commit-activity/m/bad4iz/crypto-pro-cadesplugin.svg)
+![](https://img.shields.io/github/last-commit/bad4iz/crypto-pro-cadesplugin.svg)
+
+[npm crypto-pro-cadesplugin](https://www.npmjs.com/package/crypto-pro-cadesplugin)
+
+
 Библиотека предоставляет API для работы c cadesplugin и Крипто Про
 
 ## API
