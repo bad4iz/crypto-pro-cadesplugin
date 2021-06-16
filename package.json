@@ -8,9 +8,9 @@
   "scripts": {
     "build": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ --out-dir ./dist --copy-files",
     "postversion": "git push && git push --tags",
-    "ver-patch": "npm version patch -m \"Upgrade patch to  %s\"",
     "test": "echo \"Error: no test specified\" ",
     "ver-minor": "npm version minor -m \"Upgrade minor to %s\"",
+    "ver-patch": "npm version patch -m \"Upgrade patch to  %s\"",
     "publish": "npm publish"
   },
   "author": "bad4iz <cadesplugin@bad4iz.ru>",
