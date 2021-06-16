@@ -12,6 +12,15 @@
 
 Библиотека предоставляет API для работы c cadesplugin и Крипто Про
 
+> ## Обратите внимание! Для пробной работы с Компонентом вам необходимо иметь
+> * Компьютер под управлением Windows, Linux, MacOS или FreeBSD
+> * Один из современных браузеров (Internet Explorer, Mozilla Firefox, Opera, Chrome, Яндекс.Браузер, Safari) с поддержкой сценариев JavaScript
+> * Установленный плагин для браузера «КриптоПро ЭЦП Browser plug-in» ([Установить](https://www.cryptopro.ru/products/cades/plugin/get_2_0))
+> * Если планируется создание ЭЦП по ГОСТ Р 34.10-2001/2012, то необходимо установить [СКЗИ КриптоПро CSP](https://www.cryptopro.ru/products/csp/overview)
+> * Cертификат ключа подписи, который можно получить на странице [тестового центра](https://www.cryptopro.ru/certsrv/certrqma.asp)
+> * [Проверить работу установленного плагина](https://www.cryptopro.ru/sites/default/files/products/cades/demopage/simple.html)
+
+
 ## API
 
 ### about()
