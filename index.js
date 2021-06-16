@@ -1,1 +1,1 @@
-import cryptoProCadesplugin from './dist'
+import cryptoProCadesplugin from './src'
