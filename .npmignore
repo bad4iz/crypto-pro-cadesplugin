@@ -9,6 +9,7 @@
 npm-debug.log
 .storybook
 stories
+src
 .gitignore
 docs
 scripts
