@@ -1,7 +1,7 @@
 'use strict';
 
 /* eslint-disable */
-;(function () {
+(function () {
   //already loaded
   if (window.cadesplugin) return;
 
@@ -510,7 +510,7 @@
   }
 
   //Отправляем событие что сломались.
-  function plugin_loaded_error(msg) {
+  function plugin_loaded_error(msg, noThrow) {
     if (isNativeMessageSupported()) {
       //в асинхронном варианте подключаем оба расширения, если сломались оба пробуем установить для Opera
       failed_extensions++;
@@ -523,7 +523,11 @@
     if (typeof msg === 'undefined' || typeof msg === 'object') msg = 'Плагин недоступен';
     plugin_resolved = 1;
     if (canPromise) {
-      plugin_reject(msg);
+      if (noThrow) {
+        console.error(msg);
+      } else {
+        plugin_reject(msg);
+      }
     } else {
       window.postMessage('cadesplugin_load_error', '*');
     }
@@ -565,7 +569,7 @@
           plugin_loaded_error('Ошибка при загрузке плагина');
         }
       } else {
-        plugin_loaded_error('Плагин недоступен');
+        plugin_loaded_error('Плагин недоступен', true);
       }
     }
   }
