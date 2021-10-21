@@ -7,7 +7,7 @@
 ![](https://img.shields.io/github/commit-activity/m/bad4iz/crypto-pro-cadesplugin.svg)
 ![](https://img.shields.io/github/last-commit/bad4iz/crypto-pro-cadesplugin.svg)
 
-[npm crypto-pro-cadesplugin](https://www.npmjs.com/package/crypto-pro-cadesplugin)
+[npm crypto-pro-cadesplugin](https://www.npmjs.com/package/crypto-pro-cadesplugin)  
 
 
 Библиотека предоставляет API для работы c cadesplugin и Крипто Про
