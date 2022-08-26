@@ -176,5 +176,5 @@ export default SelectCert;
     const sign = await ccpa.signXml(thumbprint, Xml);
 ```
 
-> пример использования можно посмотреть в библиотеке которая использует этот компонент для React.JavaScript **file-signature-in-react**
+> пример использования можно посмотреть в библиотеке которая использует этот компонент для React.js **file-signature-in-react**
 > https://github.com/bad4iz/file-signature-in-react
