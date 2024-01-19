@@ -1,5 +1,3 @@
-'use strict';
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // NOTE Object create
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,14 +19,50 @@ const CertificateAdjuster = Object.create(null);
 CertificateAdjuster.init = function init(currentCert) {
   const { certApi, issuerInfo, privateKey, serialNumber, thumbprint, subjectInfo, validPeriod } = currentCert;
 
-  this.certApi = certApi;
-  this.issuerInfo = issuerInfo;
-  this.privateKey = privateKey;
-  this.serialNumber = serialNumber;
-  this.thumbprint = thumbprint;
-  this.subjectInfo = subjectInfo;
-  this.validPeriod = validPeriod;
-};
+    this.certApi = certApi;
+    this.issuerInfo = issuerInfo;
+    this.privateKey = privateKey;
+    this.serialNumber = serialNumber;
+    this.thumbprint = thumbprint;
+    this.subjectInfo = subjectInfo;
+    this.validPeriod = validPeriod;
+}
+
+/**
+ * @method getInfo
+ * @param {String} subjectIssuer раздел информации 'issuerInfo' или 'subjectInfo'
+ * @returns {Object}
+ * @throws {Error}
+ * @description возвращает объект из сформированных значений в формате key: value
+ */
+CertificateAdjuster.getInfo = function getInfo(subjectIssuer) {
+  if (!this[subjectIssuer]) {
+    throw new Error('Не верно указан аттрибут')
+  }
+
+  const subjectIssuerArr = this[subjectIssuer].split(', ')
+  const _possibleInfo = this.possibleInfo(subjectIssuer)
+
+  const formedSubjectIssuerInfo = {}
+
+  subjectIssuerArr.map(tag => {
+    const tagArr = tag.split('=');
+    tagArr[0] = `${tagArr[0]}=`
+
+    formedSubjectIssuerInfo[_possibleInfo[tagArr[0]]] = tagArr[1]
+  })
+
+  return formedSubjectIssuerInfo
+}
+
+/**
+ * @method getSubjectInfo
+ * @returns {Object}
+ * @description возвращает распаршенную информацию о строке subjectInfo в формате key: value
+ */
+CertificateAdjuster.getSubjectInfo = function getSubjectInfo() {
+  return this.getInfo('subjectInfo');
+}
 
 /**
  * @method friendlyInfo
@@ -50,12 +84,12 @@ CertificateAdjuster.friendlyInfo = function friendlyInfo(subjectIssuer) {
 
     return {
       text: tagArr[1],
-      value: _possibleInfo[tagArr[0]]
+      value: _possibleInfo[tagArr[0]],
     };
   });
 
   return formedSubjectIssuerInfo;
-};
+}
 
 /**
  * @method friendlySubjectInfo
@@ -64,7 +98,7 @@ CertificateAdjuster.friendlyInfo = function friendlyInfo(subjectIssuer) {
  */
 CertificateAdjuster.friendlySubjectInfo = function friendlySubjectInfo() {
   return this.friendlyInfo('subjectInfo');
-};
+}
 
 /**
  * @method friendlyIssuerInfo
@@ -73,7 +107,7 @@ CertificateAdjuster.friendlySubjectInfo = function friendlySubjectInfo() {
  */
 CertificateAdjuster.friendlyIssuerInfo = function friendlyIssuerInfo() {
   return this.friendlyInfo('issuerInfo');
-};
+}
 
 /**
  * @method friendlyValidPeriod
@@ -85,9 +119,9 @@ CertificateAdjuster.friendlyValidPeriod = function friendlyValidPeriod() {
 
   return {
     from: this.friendlyDate(from),
-    to: this.friendlyDate(to)
-  };
-};
+    to: this.friendlyDate(to),
+  }
+}
 
 /**
  * @method possibleInfo
@@ -112,8 +146,9 @@ CertificateAdjuster.possibleInfo = function possibleInfo(subjectIssuer) {
     'СНИЛС=': 'СНИЛС',
     'INN=': 'ИНН',
     'ИНН=': 'ИНН',
+    'ИНН ЮЛ=': 'ИНН_ЮЛ',
     'ОГРН=': 'ОГРН',
-    'OGRN=': 'ОГРН'
+    'OGRN=': 'ОГРН',
   };
 
   switch (subjectIssuer) {
@@ -148,9 +183,9 @@ CertificateAdjuster.friendlyDate = function friendlyDate(date) {
 
   return {
     ddmmyy: `${day}/${month}/${year}`,
-    hhmmss: `${hours}:${minutes}:${seconds}`
+    hhmmss: `${hours}:${minutes}:${seconds}`,
   };
-};
+}
 
 /**
  * @async
@@ -167,7 +202,7 @@ CertificateAdjuster.isValid = async function isValid() {
   } catch (error) {
     throw new Error(`Произошла ошибка при проверке валидности сертификата: ${error.message}`);
   }
-};
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // NOTE Exports

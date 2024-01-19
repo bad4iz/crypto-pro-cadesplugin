@@ -2,7 +2,7 @@
 // NOTE Imports
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const CertificateAdjuster = require('./сertificateAdjuster')
+const CertificateAdjuster = require('./certificateAdjuster')
 const cadescomMethods = require('./cadescomMethods')
 const { doXmlSitnatureAlgorithm, doXmlSitnatureType } = require('./xmlSitnatureMethods')
 const {
@@ -87,9 +87,9 @@ CertificatesApi.getCertsList = async function getCertsList() {
 
     for (let index = 0; index < count; index++) {
       const certApi = await findCertsWithPrivateKey.Item(index + 1)
-      const сertificateAdjuster = Object.create(CertificateAdjuster)
+      const certificateAdjuster = Object.create(CertificateAdjuster)
 
-      сertificateAdjuster.init({
+      certificateAdjuster.init({
         certApi,
         issuerInfo: await certApi.IssuerName,
         privateKey: await certApi.PrivateKey,
@@ -102,7 +102,7 @@ CertificatesApi.getCertsList = async function getCertsList() {
         },
       })
 
-      createCertList.push(сertificateAdjuster)
+      createCertList.push(certificateAdjuster)
     }
 
     oStore.Close()
@@ -145,7 +145,7 @@ CertificatesApi.currentCadesCert = async function currentCadesCert(thumbprint) {
       return certificateItem
     } else {
       throw new Error(
-        `Произошла ошибка при получении вертификата по thumbprint значению: ${thumbprint}`,
+        `Произошла ошибка при получении сертификата по thumbprint значению: ${thumbprint}`,
       )
     }
   } catch (error) {
@@ -161,7 +161,7 @@ CertificatesApi.currentCadesCert = async function currentCadesCert(thumbprint) {
  * @description
  * Получает сертификат по thumbprint значению сертификата.
  * В отличие от currentCadesCert использует для поиска коллбек функцию getCertsList
- * С помощью этой функции в сертификате доступны методы из сertificateAdjuster
+ * С помощью этой функции в сертификате доступны методы из certificateAdjuster
  */
 CertificatesApi.getCert = async function getCert(thumbprint) {
   try {
@@ -254,7 +254,7 @@ CertificatesApi.signXml = async function signXml(
 
     return await oSignerXML.Sign(oSigner)
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error.message);
   }
 }
 
