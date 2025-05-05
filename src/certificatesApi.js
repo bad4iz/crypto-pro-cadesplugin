@@ -80,7 +80,7 @@ CertificatesApi.getCertsList = async function getCertsList() {
     const count = await findCertsWithPrivateKey.Count
 
     if (!count) {
-      throw new Error('Нет сертификатов с приватным ключём')
+      throw new Error('Нет сертификатов с приватным ключом')
     }
 
     const createCertList = []
