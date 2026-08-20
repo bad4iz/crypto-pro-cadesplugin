@@ -1,9 +1,11 @@
-const CADESCOM = require('./cadescom')
-const CAPICOM = require('./capicom')
-const LOG_LEVEL = require('./logLevel')
-const XML_DSIG_GOST = require('./XmlDsigGost')
+import CADESCOM from './cadescom.js'
+import CAPICOM from './capicom.js'
+import LOG_LEVEL from './logLevel.js'
+import XML_DSIG_GOST from './XmlDsigGost.js'
 
-module.exports = {
+export { CADESCOM, CAPICOM, LOG_LEVEL, XML_DSIG_GOST }
+
+export default {
   CADESCOM,
   CAPICOM,
   LOG_LEVEL,

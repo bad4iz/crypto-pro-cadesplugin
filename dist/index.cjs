@@ -1315,4 +1315,4 @@ var cadespluginOnload = () => (async function cadespluginOnload() {
 	}
 })();
 //#endregion
-export { cadespluginOnload as default };
+module.exports = cadespluginOnload;

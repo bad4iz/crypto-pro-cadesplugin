@@ -1,4 +1,4 @@
-module.exports = {
+const LOG_LEVEL = {
   /**
    * @constant {Number} LOG_LEVEL_DEBUG Уровень ведения логов DEBUG.
    */
@@ -12,3 +12,5 @@ module.exports = {
    */
   LOG_LEVEL_ERROR: 1,
 }
+
+export default LOG_LEVEL
