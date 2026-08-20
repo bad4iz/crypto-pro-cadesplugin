@@ -1,4 +1,5 @@
 /* eslint-disable */
+// Extension loading is based on CryptoPro cadesplugin_api.js 2.4.5.
 (function () {
   //already loaded
   if (window.cadesplugin) return;
@@ -10,7 +11,10 @@
   var isOpera = 0;
   var isFireFox = 0;
   var isEdge = 0;
-  var failed_extensions = 0;
+  var isSafari = 0;
+  var isYandex = 0;
+  var cadesplugin_loaded_event_recieved = false;
+  var isFireFoxExtensionLoaded = false;
 
   var canPromise = !!window.Promise;
   var cadesplugin;
@@ -29,7 +33,7 @@
         tem,
         M =
             ua.match(
-                /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i,
+                /(opera|yabrowser|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i,
             ) || [];
     if (/trident/i.test(M[1])) {
       tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
@@ -39,7 +43,7 @@
       };
     }
     if (M[1] === 'Chrome') {
-      tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+      tem = ua.match(/\b(OPR|Edg|Edge|YaBrowser)\/(\d+)/);
       if (tem != null)
         return {
           name: tem[1].replace('OPR', 'Opera'),
@@ -257,7 +261,14 @@
       isEdge = true;
       return true;
     }
-    // В Chrome, Firefox и Opera работаем через асинхронную версию в зависимости от версии
+    if (browserSpecs.name === 'Edg') {
+      return true;
+    }
+    if (browserSpecs.name === 'YaBrowser') {
+      isYandex = true;
+      return true;
+    }
+    // В Chrome, Firefox, Safari и Opera работаем через асинхронную версию в зависимости от версии
     if (browserSpecs.name === 'Opera') {
       isOpera = true;
       if (browserSpecs.version >= 33) {
@@ -280,6 +291,10 @@
       } else {
         return false;
       }
+    }
+    if (browserSpecs.name === 'Safari') {
+      isSafari = true;
+      return browserSpecs.version >= 12;
     }
   }
 
@@ -507,13 +522,31 @@
   }
 
   function firefox_or_edge_nmcades_onload() {
+    if (window.cadesplugin_extension_loaded_callback) {
+      window.cadesplugin_extension_loaded_callback();
+    }
+    isFireFoxExtensionLoaded = true;
     cpcsp_chrome_nmcades.check_chrome_plugin(
         plugin_loaded,
         plugin_loaded_error,
     ); // eslint-disable-line no-undef
   }
 
+  function load_js_script(url, successFunc, errorFunc) {
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', url);
+    script.onerror = errorFunc;
+    script.onload = successFunc;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
   function nmcades_api_onload() {
+    if (!isIE() && !isFireFox && !isSafari && !isEdge) {
+      if (window.cadesplugin_extension_loaded_callback) {
+        window.cadesplugin_extension_loaded_callback();
+      }
+    }
     window.postMessage('cadesplugin_echo_request', '*');
     window.addEventListener(
         'message',
@@ -523,55 +556,79 @@
               !event.data.match('cadesplugin_loaded')
           )
             return;
-          if (isFireFox || isEdge) {
-            // Для Firefox вместе с сообщением cadesplugin_loaded прилетает url для загрузки nmcades_plugin_api.js
+          if (cadesplugin_loaded_event_recieved) return;
+          if (isFireFox || isSafari || isEdge) {
+            // Для Firefox, Safari и старого Edge вместе с сообщением прилетает URL API расширения.
             var url = event.data.substring(event.data.indexOf('url:') + 4);
-            var fileref = document.createElement('script');
-            fileref.setAttribute('type', 'text/javascript');
-            fileref.setAttribute('src', url);
-            fileref.onerror = plugin_loaded_error;
-            fileref.onload = firefox_or_edge_nmcades_onload;
-            document.getElementsByTagName('head')[0].appendChild(fileref);
-            // Для Firefox и Edge у нас только по одному расширению.
-            failed_extensions++;
+            if (
+              !isEdge &&
+              !url.match(
+                '^(moz|safari)-extension://[a-zA-Z0-9/_-]+/nmcades_plugin_api.js$',
+              )
+            ) {
+              plugin_loaded_error();
+              return;
+            }
+            load_js_script(
+              url,
+              firefox_or_edge_nmcades_onload,
+              plugin_loaded_error,
+            );
           } else {
             cpcsp_chrome_nmcades.check_chrome_plugin(
                 plugin_loaded,
                 plugin_loaded_error,
             ); // eslint-disable-line no-undef
           }
+          cadesplugin_loaded_event_recieved = true;
         },
         false,
     );
   }
 
-  //Загружаем расширения для Chrome, Opera, YaBrowser, FireFox, Edge
+  // Загружаем расширения для Chrome, Opera, YaBrowser, Firefox, Edge и Safari.
   function load_extension() {
-    if (isFireFox || isEdge) {
+    if (isFireFox || isSafari || isEdge) {
       // вызываем callback руками т.к. нам нужно узнать ID расширения. Он уникальный для браузера.
       nmcades_api_onload();
       return;
-    } else {
-      // в асинхронном варианте для chrome и opera подключаем оба расширения
-      var fileref = document.createElement('script');
-      fileref.setAttribute('type', 'text/javascript');
-      fileref.setAttribute(
-          'src',
-          'chrome-extension://iifchhfnnmpdbibifmljnfjhpififfog/nmcades_plugin_api.js',
-      );
-      fileref.onerror = plugin_loaded_error;
-      fileref.onload = nmcades_api_onload;
-      document.getElementsByTagName('head')[0].appendChild(fileref);
-      fileref = document.createElement('script');
-      fileref.setAttribute('type', 'text/javascript');
-      fileref.setAttribute(
-          'src',
-          'chrome-extension://epebfcehmdedogndhlcacafjaacknbcm/nmcades_plugin_api.js',
-      );
-      fileref.onerror = plugin_loaded_error;
-      fileref.onload = nmcades_api_onload;
-      document.getElementsByTagName('head')[0].appendChild(fileref);
     }
+    var operaUrl =
+      'chrome-extension://epebfcehmdedogndhlcacafjaacknbcm/nmcades_plugin_api.js';
+    var manifestv2Url =
+      'chrome-extension://iifchhfnnmpdbibifmljnfjhpififfog/nmcades_plugin_api.js';
+    var manifestv3Url =
+      'chrome-extension://pfhgbfnnjiafkhfdkmpiflachepdcjod/nmcades_plugin_api.js';
+
+    if (isYandex) {
+      load_js_script(operaUrl, nmcades_api_onload, function () {
+        load_js_script(manifestv2Url, nmcades_api_onload, function () {
+          load_js_script(
+            manifestv3Url,
+            nmcades_api_onload,
+            plugin_loaded_error,
+          );
+        });
+      });
+      return;
+    }
+
+    if (isOpera) {
+      load_js_script(manifestv2Url, nmcades_api_onload, function () {
+        load_js_script(operaUrl, nmcades_api_onload, function () {
+          load_js_script(
+            manifestv3Url,
+            nmcades_api_onload,
+            plugin_loaded_error,
+          );
+        });
+      });
+      return;
+    }
+
+    load_js_script(manifestv2Url, nmcades_api_onload, function () {
+      load_js_script(manifestv3Url, nmcades_api_onload, plugin_loaded_error);
+    });
   }
 
   //Загружаем плагин для NPAPI
@@ -605,6 +662,9 @@
   //Отправляем событие что все ок.
   function plugin_loaded() {
     plugin_resolved = 1;
+    if (window.cadesplugin_plugin_loaded_callback) {
+      window.cadesplugin_plugin_loaded_callback();
+    }
     if (canPromise) {
       plugin_resolve();
     } else {
@@ -614,15 +674,6 @@
 
   //Отправляем событие что сломались.
   function plugin_loaded_error(msg, noThrow) {
-    if (isNativeMessageSupported()) {
-      //в асинхронном варианте подключаем оба расширения, если сломались оба пробуем установить для Opera
-      failed_extensions++;
-      if (failed_extensions < 2) return;
-      if (isOpera && (typeof msg === 'undefined' || typeof msg === 'object')) {
-        install_opera_extension();
-        return;
-      }
-    }
     if (typeof msg === 'undefined' || typeof msg === 'object')
       msg = 'Плагин недоступен';
     plugin_resolved = 1;
@@ -640,10 +691,13 @@
   //проверяем что у нас хоть какое то событие ушло, и если не уходило кидаем еще раз ошибку
   function check_load_timeout() {
     if (plugin_resolved === 1) return;
-    if (isFireFox) {
+    if (isFireFox && !isFireFoxExtensionLoaded) {
       show_firefox_missing_extension_dialog();
     }
     plugin_resolved = 1;
+    if (window.cadesplugin_timeout_failed_callback) {
+      window.cadesplugin_timeout_failed_callback();
+    }
     if (canPromise) {
       plugin_reject('Истекло время ожидания загрузки плагина');
     } else {
@@ -724,6 +778,22 @@
     pluginObject = obj;
   }
 
+  function set_load_timeout() {
+    if (window.cadesplugin_load_timeout) {
+      setTimeout(check_load_timeout, window.cadesplugin_load_timeout);
+    } else {
+      setTimeout(check_load_timeout, 20000);
+    }
+  }
+
+  var onVisibilityChange = function () {
+    if (document.hidden === false) {
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      set_load_timeout();
+      check_plugin_working();
+    }
+  };
+
   //Export
   cadesplugin.JSModuleVersion = '2.1.1';
   cadesplugin.async_spawn = async_spawn;
@@ -740,16 +810,15 @@
     cadesplugin.CreateObject = CreateObject;
   }
 
-  if (window.cadesplugin_load_timeout) {
-    setTimeout(check_load_timeout, window.cadesplugin_load_timeout);
-  } else {
-    setTimeout(check_load_timeout, 20000);
-  }
-
   set_constantValues();
 
   cadesplugin.current_log_level = cadesplugin.LOG_LEVEL_ERROR;
   window.cadesplugin = cadesplugin;
+  if (isSafari && document.hidden) {
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return;
+  }
+  set_load_timeout();
   check_plugin_working();
 
   return cadesplugin;
