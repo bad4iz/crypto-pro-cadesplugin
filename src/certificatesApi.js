@@ -2,27 +2,27 @@
 // NOTE Imports
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const CertificateAdjuster = require('./certificateAdjuster')
-const cadescomMethods = require('./cadescomMethods')
-const { doXmlSitnatureAlgorithm, doXmlSitnatureType } = require('./xmlSitnatureMethods')
+import CertificateAdjuster from './certificateAdjuster.js'
+import cadescomMethods from './cadescomMethods.js'
+import { doXmlSitnatureAlgorithm, doXmlSitnatureType } from './xmlSitnatureMethods.js'
+import { CADESCOM, CAPICOM } from './constants/index.js'
+
 const {
-  CAPICOM: {
-    CAPICOM_CURRENT_USER_STORE,
-    CAPICOM_MY_STORE,
-    CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED,
-    CAPICOM_CERTIFICATE_FIND_SHA1_HASH,
-    CAPICOM_CERTIFICATE_FIND_TIME_VALID,
-    CAPICOM_CERTIFICATE_FIND_EXTENDED_PROPERTY,
-    CAPICOM_PROPID_KEY_PROV_INFO,
-    CAPICOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME,
-    CAPICOM_CERTIFICATE_INCLUDE_END_ENTITY_ONLY,
-  },
-  CADESCOM: {
-    CADESCOM_BASE64_TO_BINARY,
-    CADESCOM_CADES_BES,
-    CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED,
-  },
-} = require('./constants')
+  CAPICOM_CURRENT_USER_STORE,
+  CAPICOM_MY_STORE,
+  CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED,
+  CAPICOM_CERTIFICATE_FIND_SHA1_HASH,
+  CAPICOM_CERTIFICATE_FIND_TIME_VALID,
+  CAPICOM_CERTIFICATE_FIND_EXTENDED_PROPERTY,
+  CAPICOM_PROPID_KEY_PROV_INFO,
+  CAPICOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME,
+  CAPICOM_CERTIFICATE_INCLUDE_END_ENTITY_ONLY,
+} = CAPICOM
+const {
+  CADESCOM_BASE64_TO_BINARY,
+  CADESCOM_CADES_BES,
+  CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED,
+} = CADESCOM
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // NOTE Object create
@@ -262,4 +262,4 @@ CertificatesApi.signXml = async function signXml(
 // NOTE Exports
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-module.exports = CertificatesApi
+export default CertificatesApi

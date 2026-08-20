@@ -1,4 +1,4 @@
-module.exports = {
+const CADESCOM = {
   /**
    * @constant {Number} CADESCOM_STRING_TO_UCS2LE Данные будут перекодированы в UCS - 2 little endian.
    */
@@ -156,3 +156,5 @@ module.exports = {
    */
   CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE: 2,
 }
+
+export default CADESCOM

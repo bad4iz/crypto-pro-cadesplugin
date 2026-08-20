@@ -1,4 +1,4 @@
-module.exports = {
+const CAPICOM = {
   /**
    * @constant {Number} CAPICOM_LOCAL_MACHINE_STORE Локальное хранилище компьютера.
    */
@@ -153,3 +153,5 @@ module.exports = {
    */
   CAPICOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME: 0,
 }
+
+export default CAPICOM

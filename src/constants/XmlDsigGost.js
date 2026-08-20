@@ -1,4 +1,4 @@
-module.exports = {
+const XML_DSIG_GOST = {
   /**
    * @constant {String} XmlDsigGost3410Url Алгоритм подписи для XmlDsig.
    */
@@ -34,3 +34,5 @@ module.exports = {
    */
   XmlDsigGost3411UrlObsolete: 'http://www.w3.org/2001/04/xmldsig-more#gostr3411',
 }
+
+export default XML_DSIG_GOST
